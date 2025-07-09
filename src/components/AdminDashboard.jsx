@@ -99,7 +99,7 @@ function AdminDashboard() {
       <h2 className="mb-3 text-primary">🛡️ Admin Dashboard</h2>
       <p className="text-muted">Manage all users and their journals.</p>
 
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end mb-2">
         <button
           className="btn btn-success me-2"
           onClick={() => navigate("/dashboard")}
