@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/journal/public/login",
+        "http://localhost:8080/journal/public/login" || "https://journalapp-latest.onrender.com/journal/public/login",
         {
           username,
           password,

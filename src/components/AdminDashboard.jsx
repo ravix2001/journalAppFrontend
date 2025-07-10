@@ -18,7 +18,7 @@ function AdminDashboard() {
   const fetchUsers = () => {
     if (token) {
       axios
-        .get("http://localhost:8080/journal/admin/all-users", {
+        .get("http://localhost:8080/journal/admin/all-users" || "https://journalapp-latest.onrender.com/journal/admin/all-users", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUsersWithJournals(res.data))
@@ -40,7 +40,7 @@ function AdminDashboard() {
       return;
     axios
       .post(
-        `http://localhost:8080/journal/admin/create-admin/${userId}`,
+        `http://localhost:8080/journal/admin/create-admin/${userId}` || `https://journalapp-latest.onrender.com/journal/admin/create-admin/${userId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -59,7 +59,7 @@ function AdminDashboard() {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(
-        `http://localhost:8080/journal/admin/delete-user/${userId}`,
+        `http://localhost:8080/journal/admin/delete-user/${userId}` || `https://journalapp-latest.onrender.com/journal/admin/delete-user/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
