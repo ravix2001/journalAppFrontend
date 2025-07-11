@@ -49,7 +49,7 @@ function Dashboard() {
     if (token) {
       setLoading(true);
       await axios
-        .get(`${API_BASE_URL}/admin/all-users`, {
+        .get(`${API_BASE_URL}/journal`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUsersWithJournals(res.data))
