@@ -32,7 +32,14 @@ function Dashboard() {
   // Base API URL
   const API_BASE_URL = "https://journalapp-latest.onrender.com";
 
+  // Fetch users
   useEffect(() => {
+    if (token) {
+      fetchUsers();
+    }
+  }, [token]);
+
+  const fetchUsers = async () => {
     const storedUsername = localStorage.getItem("username") || "";
     const storedRole = localStorage.getItem("role") || "";
     setUsername(storedUsername);
@@ -41,18 +48,18 @@ function Dashboard() {
 
     if (token) {
       setLoading(true);
-      axios
-        .get(`${API_BASE_URL}/journal`, {
+      await axios
+        .get(`${API_BASE_URL}/admin/all-users`, {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((res) => setJournals(res.data))
+        .then((res) => setUsersWithJournals(res.data))
         .catch((err) => {
-          setFetchError("Failed to fetch journals");
+          setFetchError("Failed to fetch users and journals.");
           console.error(err);
         });
       setLoading(false);
     }
-  }, [token]);
+  };
 
   if (loading) {
     return (
