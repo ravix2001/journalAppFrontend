@@ -15,7 +15,7 @@ const SignupForm = () => {
     setError("");
     setMessage("");
     try {
-      const response = await axios.post("http://localhost:8080/journal/public/signup" || "https://journalapp-latest.onrender.com/journal/public/signup", {
+      const response = await axios.post("http://localhost:8080/signup" || "https://journalapp-latest.onrender.com/signup", {
         username,
         password,
         email,

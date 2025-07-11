@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/journal/public/login" || "https://journalapp-latest.onrender.com/journal/public/login",
+        "http://localhost:8080/login" || "https://journalapp-latest.onrender.com/login",
         {
           username,
           password,
@@ -27,12 +27,15 @@ const LoginForm = () => {
       localStorage.setItem("username", username);
       localStorage.setItem("role", role);
 
-      // 🚨 This is the redirect based on role
-      if (role === "ROLE_ADMIN") {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
+      navigate("/dashboard");
+
+      // // 🚨 This is the redirect based on role
+      // if (role === "ROLE_ADMIN") {
+      //   navigate("/admin");
+      // } else {
+      //   navigate("/dashboard");
+      // }
+
     } catch (error) {
       console.error("Authentication failed:", error);
       setToken(null);

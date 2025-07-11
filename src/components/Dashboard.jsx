@@ -37,7 +37,7 @@ function Dashboard() {
 
     if (token) {
       axios
-        .get("http://localhost:8080/journal/journal" || "https://journalapp-latest.onrender.com/journal/journal", {
+        .get("http://localhost:8080/journal" || "https://journalapp-latest.onrender.com/journal", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setJournals(res.data))
@@ -97,7 +97,7 @@ function Dashboard() {
     try {
       if (modalMode === "add") {
         const res = await axios.post(
-          "http://localhost:8080/journal/journal" || "https://journalapp-latest.onrender.com/journal/journal",
+          "http://localhost:8080/journal" || "https://journalapp-latest.onrender.com/journal",
           {
             title: currentJournal.title,
             content: currentJournal.content,
@@ -107,7 +107,7 @@ function Dashboard() {
         setJournals([res.data, ...journals]);
       } else {
         const res = await axios.put(
-          `http://localhost:8080/journal/journal/id/${currentJournal.id || currentJournal._id}` || `https://journalapp-latest.onrender.com/journal/journal/id/${currentJournal.id || currentJournal._id}`,
+          `http://localhost:8080/journal/id/${currentJournal.id || currentJournal._id}` || `https://journalapp-latest.onrender.com/journal/id/${currentJournal.id || currentJournal._id}`,
           {
             title: currentJournal.title,
             content: currentJournal.content,
@@ -132,7 +132,7 @@ function Dashboard() {
   const handleDeleteJournal = async (id) => {
     if (!window.confirm("Are you sure you want to delete this journal?")) return;
     try {
-      await axios.delete(`http://localhost:8080/journal/journal/id/${id}` || `https://journalapp-latest.onrender.com/journal/journal/id/${id}`, {
+      await axios.delete(`http://localhost:8080/journal/id/${id}` || `https://journalapp-latest.onrender.com/journal/id/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJournals(journals.filter((j) => (j.id || j._id) !== id));
@@ -161,7 +161,7 @@ function Dashboard() {
 
   const handleUpdateProfile = async () => {
     try {
-      await axios.put("http://localhost:8080/journal/user" || "https://journalapp-latest.onrender.com/journal/user", profile, {
+      await axios.put("http://localhost:8080/user" || "https://journalapp-latest.onrender.com/user", profile, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Profile updated successfully!");
@@ -177,7 +177,7 @@ function Dashboard() {
   const handleDeleteProfile = async () => {
     if (!window.confirm("Are you sure you want to delete your profile?")) return;
     try {
-      await axios.delete("http://localhost:8080/journal/user" || "https://journalapp-latest.onrender.com/journal/user", {
+      await axios.delete("http://localhost:8080/user" || "https://journalapp-latest.onrender.com/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       handleLogout();
