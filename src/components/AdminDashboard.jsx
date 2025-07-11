@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AdminDashboard() {
-  const { token, setToken} = useContext(AuthContext);
+  const { token, setToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [usersWithJournals, setUsersWithJournals] = useState([]);
   const [searchUser, setSearchUser] = useState("");
@@ -16,10 +16,12 @@ function AdminDashboard() {
 
   // Fetch users
   useEffect(() => {
-    fetchUsers();
+    if (token) {
+      fetchUsers();
+    }
   }, [token]);
 
-  const fetchUsers = async() => {
+  const fetchUsers = async () => {
     if (token) {
       setLoading(true);
       await axios
@@ -64,12 +66,9 @@ function AdminDashboard() {
   const handleDeleteUser = async (userId) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      await axios.delete(
-          `${API_BASE_URL}/admin/delete-user/${userId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`${API_BASE_URL}/admin/delete-user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       fetchUsers();
     } catch (err) {
       alert("Failed to delete user.");

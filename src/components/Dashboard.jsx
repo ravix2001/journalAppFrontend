@@ -32,7 +32,7 @@ function Dashboard() {
   // Base API URL
   const API_BASE_URL = "https://journalapp-latest.onrender.com";
 
-  useEffect(async () => {
+  useEffect(() => {
     const storedUsername = localStorage.getItem("username") || "";
     const storedRole = localStorage.getItem("role") || "";
     setUsername(storedUsername);
@@ -41,7 +41,7 @@ function Dashboard() {
 
     if (token) {
       setLoading(true);
-      await axios
+      axios
         .get(`${API_BASE_URL}/journal`, {
           headers: { Authorization: `Bearer ${token}` },
         })
