@@ -10,12 +10,15 @@ const SignupForm = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Base API URL
+  const API_BASE_URL = "https://journalapp-latest.onrender.com";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setMessage("");
     try {
-      const response = await axios.post("http://localhost:8080/signup" || "https://journalapp-latest.onrender.com/signup", {
+      const response = await axios.post(`${API_BASE_URL}/signup`, {
         username,
         password,
         email,

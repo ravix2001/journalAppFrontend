@@ -10,6 +10,9 @@ function AdminDashboard() {
   const [fetchError, setFetchError] = useState(null);
   const navigate = useNavigate();
 
+  // Base API URL
+  const API_BASE_URL = "https://journalapp-latest.onrender.com";
+
   // Fetch users
   useEffect(() => {
     fetchUsers();
@@ -18,7 +21,7 @@ function AdminDashboard() {
   const fetchUsers = () => {
     if (token) {
       axios
-        .get("http://localhost:8080/admin/all-users" || "https://journalapp-latest.onrender.com/admin/all-users", {
+        .get(`${API_BASE_URL}/admin/all-users`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUsersWithJournals(res.data))
@@ -40,7 +43,7 @@ function AdminDashboard() {
       return;
     axios
       .post(
-        `http://localhost:8080/admin/create-admin/${userId}` || `https://journalapp-latest.onrender.com/admin/create-admin/${userId}`,
+        `${API_BASE_URL}/admin/create-admin/${userId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -59,7 +62,7 @@ function AdminDashboard() {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(
-        `http://localhost:8080/admin/delete-user/${userId}` || `https://journalapp-latest.onrender.com/admin/delete-user/${userId}`,
+          `${API_BASE_URL}/admin/delete-user/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

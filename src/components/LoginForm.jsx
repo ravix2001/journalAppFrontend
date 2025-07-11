@@ -10,11 +10,14 @@ const LoginForm = () => {
   const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // Base API URL
+  const API_BASE_URL = "https://journalapp-latest.onrender.com";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/login" || "https://journalapp-latest.onrender.com/login",
+        `${API_BASE_URL}/login`,
         {
           username,
           password,
