@@ -62,15 +62,7 @@ function Dashboard() {
     }
   }, [token]);
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return <div className="text-center mt-5">Loading...</div>;
 
   if (!token) {
     return <Navigate to="/login" replace />;
