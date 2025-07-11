@@ -32,34 +32,35 @@ function Dashboard() {
   // Base API URL
   const API_BASE_URL = "https://journalapp-latest.onrender.com";
 
-  // Fetch users
   useEffect(() => {
+    const fetchJournals = async () => {
+      const storedUsername = localStorage.getItem("username") || "";
+      const storedRole = localStorage.getItem("role") || "";
+      setUsername(storedUsername);
+      setRole(storedRole);
+      setProfile((prev) => ({ ...prev, username: storedUsername }));
+
+      if (token) {
+        setLoading(true);
+        try {
+          const res = await axios.get(`${API_BASE_URL}/journal`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setJournals(res.data);
+          setFetchError(null);
+        } catch (err) {
+          setFetchError("Failed to fetch journals");
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
     if (token) {
-      fetchUsers();
+      fetchJournals();
     }
   }, [token]);
-
-  const fetchUsers = async () => {
-    const storedUsername = localStorage.getItem("username") || "";
-    const storedRole = localStorage.getItem("role") || "";
-    setUsername(storedUsername);
-    setRole(storedRole);
-    setProfile((prev) => ({ ...prev, username: storedUsername }));
-
-    if (token) {
-      setLoading(true);
-      await axios
-        .get(`${API_BASE_URL}/journal`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => setUsersWithJournals(res.data))
-        .catch((err) => {
-          setFetchError("Failed to fetch users and journals.");
-          console.error(err);
-        });
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
