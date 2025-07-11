@@ -4,7 +4,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AdminDashboard() {
-  const { token, setToken, loading } = useContext(AuthContext);
+  const { token, setToken} = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [usersWithJournals, setUsersWithJournals] = useState([]);
   const [searchUser, setSearchUser] = useState("");
   const [fetchError, setFetchError] = useState(null);
@@ -18,9 +19,10 @@ function AdminDashboard() {
     fetchUsers();
   }, [token]);
 
-  const fetchUsers = () => {
+  const fetchUsers = async() => {
     if (token) {
-      axios
+      setLoading(true);
+      await axios
         .get(`${API_BASE_URL}/admin/all-users`, {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -29,6 +31,7 @@ function AdminDashboard() {
           setFetchError("Failed to fetch users and journals.");
           console.error(err);
         });
+      setLoading(false);
     }
   };
 
